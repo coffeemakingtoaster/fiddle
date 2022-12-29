@@ -3,6 +3,7 @@
 benchmark() {
 for i in {1..100}
 do
+	rm log.txt
 	duration=$((i*100))
 	echo Running for $duration ms
 	node --trace_gc ./garbage-collection.js $1 $duration > log.txt

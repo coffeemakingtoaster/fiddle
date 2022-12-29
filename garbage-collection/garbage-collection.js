@@ -85,7 +85,7 @@ const temporaryMemory = [];
  */
 function result() {
   const now = Date.now();
-const filepath = `raw_logs/${style === 0? 'garbage-collection.json': 'objectPooling.jsoni'}`
+const filepath = `raw_logs/${style === 0? 'garbage-collection.json': 'object-pooling.json'}`
   //console.log(`Results:\n\tDuration in ms: ${now-start}\n\tTotal objects created: ${totalCount}\n\tObjects created per ms: ${totalCount / (now-start)}`)
   let data = []
 	if (fs.existsSync(filepath)){
