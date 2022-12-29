@@ -1,9 +1,0 @@
-{
-  "name": "fiddle",
-  "version": "1.0.0",
-  "description": "",
-  "scripts": {
-    "benchmark-both:short": "node ./garbage-collection.js 0 1000 & node ./garbage-collection.js 1 1000",
-    "benchmark-both:long": "node ./garbage-collection.js 0 10000 & node ./garbage-collection.js 1 10000"
-  }
-}

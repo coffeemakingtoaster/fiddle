@@ -1,5 +1,7 @@
+const fs = require('fs')
 const style = +process.argv[2] || 0; // Run with GC by default
 const endTime = Date.now() + ( +process.argv[3] || 1000) // Run for 1 second by default
+let resultsHaveBeenCollected = false
 
 function generateSampleObject() {
   // Object containing 2 booleans, 2 strings, 2 numbers, 2 arrays, 2 Objects
@@ -83,8 +85,20 @@ const temporaryMemory = [];
  */
 function result() {
   const now = Date.now();
-  console.log(`Results:\n\tDuration in ms: ${now-start}\n\tTotal objects created: ${totalCount}\n\tObjects created per ms: ${totalCount / (now-start)}`)
-  process.exit();
+const filepath = `raw_logs/${style === 0? 'garbage-collection.json': 'objectPooling.jsoni'}`
+  //console.log(`Results:\n\tDuration in ms: ${now-start}\n\tTotal objects created: ${totalCount}\n\tObjects created per ms: ${totalCount / (now-start)}`)
+  let data = []
+	if (fs.existsSync(filepath)){
+data =  JSON.parse(fs.readFileSync(filepath))
+	}
+  data.push({
+	duration: now-start,
+	totalCount: totalCount,
+	  createdPerMs: totalCount/(now-start)
+  })
+  // Sort by duration
+  data.sort((a,b) => a.duration - b.duration)
+  fs.writeFileSync(filepath, JSON.stringify(data))
 }
 
 /**
@@ -99,8 +113,8 @@ function collect() {
   temporaryMemory.length = 0;
   // If time exceeded runtime => end run
   if (Date.now() >= endTime) {
-    result();
-    process.exit();
+      resultsHaveBeenCollected = true
+    
   }
 }
 
@@ -113,7 +127,7 @@ function main() {
   const props = generateSampleObject();
   let collectTime = Date.now() + howLong;
 
-  while (true) {
+  while (!resultsHaveBeenCollected) {
     // Insert elemtents into array
     for (let i = 0; i < howMuch; ++i) {
       temporaryMemory.push(copyViaSomething(props));
@@ -126,4 +140,7 @@ function main() {
   }
 }
 
+
 main();
+result()
+
