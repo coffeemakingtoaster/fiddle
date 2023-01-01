@@ -1,4 +1,4 @@
-#! /bin/bashA
+#! /bin/bash
 
 benchmark() {
 for i in {1..100}
