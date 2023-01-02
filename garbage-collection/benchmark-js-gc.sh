@@ -12,9 +12,12 @@ done
 }
 
 parse_log(){
-	targets=(`grep -o 'MB, .* /' log.txt | grep -o '[1-9]*\.[0-9]*' | cut -d',' -f1`)
-	printf -v joined '%s,' "${targets[@]}"
-	echo "${joined%,}">"raw_logs/${1}"
+	while read p;
+	do
+		gctype=$(echo $p | grep -o ': .* -> ' | grep -o '[a-zA-Z]*') 
+		timing=$(echo $p | grep -o 'MB, .* /' | grep -o '[1-9]*\.[0-9]*')
+		echo "${timing} ; ${gctype}">>"raw_logs/${1}"
+	done < log.txt
 }
 
 
