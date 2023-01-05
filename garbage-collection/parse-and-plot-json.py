@@ -50,12 +50,12 @@ def plot(parsed_gc_data, parsed_op_data):
 	# Export gc distribution gc
 	plt.figure()
 	plt.title('Zeit pro Garbage Collection Algorithmus in s (ohne Object Pooling)')
-	plt.pie(gc_breakdown_dict.values(), labels=gc_breakdown_dict.keys(), autopct=lambda p : '{:.2f}%  ({:,.0f})'.format(p/1000,p * sum(gc_breakdown_dict.values())/100))
+	plt.pie(gc_breakdown_dict.values(), labels=gc_breakdown_dict.keys(), autopct=lambda p : '{:.2f}%  ({:,.0f})'.format(p,p * sum(gc_breakdown_dict.values())/100))
 	plt.savefig('exports/gc_gc_breakdown')
 	# Export gc distribution op 
 	plt.figure()
 	plt.title('Zeit pro Garbage Collection Algorithmus in s (mit Object Pooling)')
-	plt.pie(op_breakdown_dict.values(), labels=op_breakdown_dict.keys(), autopct=lambda p : '{:.2f}%  ({:,.0f})'.format(p/1000,p * sum(op_breakdown_dict.values())/100))
+	plt.pie(op_breakdown_dict.values(), labels=op_breakdown_dict.keys(), autopct=lambda p : '{:.2f}%  ({:,.0f})'.format(p,p * sum(op_breakdown_dict.values())/100))
 	plt.savefig('exports/op_gc_breakdown')
 
 
