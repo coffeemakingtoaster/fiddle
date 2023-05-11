@@ -1,0 +1,12 @@
+{
+  "devDependencies": {
+    "typescript": "^5.0.4"
+  },
+  "dependencies": {
+    "@faker-js/faker": "^7.6.0",
+    "ts-node": "^10.9.1"
+  },
+  "scripts": {
+    "benchmark:tries": "ts-node trie-benchmark.ts"
+  }
+}
