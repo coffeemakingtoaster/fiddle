@@ -7,7 +7,7 @@ Look at fasttext embeddings and similar elements. (Very simple, very slow)
 ```sh
 sh download-fasttext.sh
 # Note this may be slow as this is poorly written
-python3 parser.py
+python3 parse.py
 ```
 
 ## Usage
