@@ -4,10 +4,6 @@
 #include <stdio.h>
 
 int asm_max(int a, int b) {
-  int result;
-  // Use %= to add a identifier for the instance of asm
-  // see also:
-  // https://gcc.gnu.org/onlinedocs/gcc/Extended-Asm.html#Assembler-Template
   __asm__ volatile("CMP %w1, %w2;"             // Compare a and b
                    "BLT not_greater_than%=;" // Branch if less than (a < b)
                    "MOV %w0, %w1;"             // Move a to output registry
@@ -16,20 +12,16 @@ int asm_max(int a, int b) {
                    "MOV %w0, %w2;" // Move b to output registry
                    "end_comparison%=:"
 
-                   : "=r"(result)   // Output operand (result)
+                   : "=r"(a)   // Output operand (result)
                    : "r"(a), "0"(b) // Input operands (a, b)
   );
-  return result;
+  return a;
 }
 
 /*
 Internal min function
 */
 int asm_min(int a, int b) {
-  int result;
-  // Use %= to add a identifier for the instance of asm
-  // see also:
-  // https://gcc.gnu.org/onlinedocs/gcc/Extended-Asm.html#Assembler-Template
   __asm__ volatile("CMP %w1, %w2;"             // Compare a and b
                    "BLT not_greater_than%=;" // Branch if less than (a < b)
                    "MOV %w0, %w2;"             // Move b to output registry
@@ -38,10 +30,10 @@ int asm_min(int a, int b) {
                    "MOV %w0, %w1;" // Move a to output registry
                    "end_comparison%=:"
 
-                   : "=r"(result)   // Output operand (result)
+                   : "=r"(a)   // Output operand (result)
                    : "r"(a), "0"(b) // Input operands (a, b)
   );
-  return result;
+  return a;
 }
 
 /*
