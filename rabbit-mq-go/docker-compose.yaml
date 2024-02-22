@@ -1,0 +1,29 @@
+version: "3.2"
+services:
+  rabbitmq:
+    image: rabbitmq:3-management-alpine
+    container_name: 'rabbitmq'
+    ports:
+        - 5672:5672
+        - 15672:15672
+    volumes:
+        - ~/.docker-conf/rabbitmq/data/:/var/lib/rabbitmq/
+        - ~/.docker-conf/rabbitmq/log/:/var/log/rabbitmq
+    healthcheck:
+        test: ["CMD", "wget", "-O", "-", " http://localhost:15672/"]
+        interval: 1m30s
+        timeout: 10s
+        retries: 3
+        start_period: 2m
+
+  sender:
+    build: ./sender
+    depends_on:
+      - rabbitmq
+
+  receiver:
+    build: ./receiver
+    depends_on:
+      - rabbitmq
+
+
