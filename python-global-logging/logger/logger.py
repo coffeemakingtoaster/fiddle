@@ -8,20 +8,21 @@ class LogFormatter(logging.Formatter):
     red = "\x1b[31;20m"
     bold_red = "\x1b[31;1m"
     reset = "\x1b[0m"
-    log_format = "%(asctime)s\t%(name)-12s\t%(levelname)-8s\t%(message)s"
 
     FORMATS = {
-        logging.DEBUG: grey + log_format + reset,
-        logging.INFO: green + log_format + reset,
-        logging.WARNING: yellow + log_format + reset,
-        logging.ERROR: red + log_format + reset,
-        logging.CRITICAL: bold_red + log_format + reset,
+        logging.DEBUG: grey,
+        logging.INFO: green,
+        logging.WARNING: yellow,
+        logging.ERROR: red,
+        logging.CRITICAL: bold_red,
     }
 
     def format(self, record):
-        log_fmt = self.FORMATS.get(record.levelno)
-        formatter = logging.Formatter(log_fmt)
-        return formatter.format(record)
+        return (
+            self.FORMATS.get(record.levelno, self.grey)
+            + super().format(record)
+            + self.reset
+        )
 
 
 def init_logging():
@@ -32,7 +33,7 @@ def init_logging():
     )
     console = logging.StreamHandler()
     # set a format which is simpler for console use
-    formatter = LogFormatter()
+    formatter = LogFormatter("%(asctime)s\t%(name)-12s\t%(levelname)-8s\t%(message)s")
     # tell the handler to use this format
     console.setFormatter(formatter)
     # set to be the only logger
