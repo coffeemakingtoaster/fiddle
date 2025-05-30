@@ -1,5 +1,5 @@
 import ctypes
-__lib = ctypes.cdll.LoadLibrary('./library.so')
+__lib = ctypes.cdll.LoadLibrary('./lib/library.so')
 
 def setup():
     # Declare return types

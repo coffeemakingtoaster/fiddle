@@ -3,8 +3,8 @@ package main
 import (
 	"fmt"
 	"os"
+	"os/exec"
 
-	"github.com/kluctl/go-embed-python/python"
 	"gopkg.in/yaml.v3"
 )
 
@@ -18,18 +18,11 @@ type Set struct {
 }
 
 func run(code string) {
-	ep, err := python.NewEmbeddedPython("example")
-	if err != nil {
-		panic(err)
-	}
-	code = "from wrapper import *\n" + code
-	cmd, err := ep.PythonCmd("-c", code)
-	if err != nil {
-		panic(err)
-	}
+	code = "from lib.wrapper import *\n" + code
+	cmd := exec.Command("python3", "-c", code)
 	cmd.Stdout = os.Stdout
 	cmd.Stderr = os.Stderr
-	err = cmd.Run()
+	err := cmd.Run()
 	if err != nil {
 		panic(err)
 	}

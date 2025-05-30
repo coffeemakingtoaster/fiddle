@@ -1,2 +1,3 @@
-library.so
-library.h
+*.so
+*.h
+main
