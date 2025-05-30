@@ -1,0 +1,7 @@
+sets:
+  - name: test1
+    code: print("hello")
+  - name: test2
+    code: |
+      print("multiline hello")
+      print("multiline hello2")
