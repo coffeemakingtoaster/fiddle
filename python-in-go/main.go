@@ -22,7 +22,7 @@ func run(code string) {
 	if err != nil {
 		panic(err)
 	}
-
+	code = "from wrapper import *\n" + code
 	cmd, err := ep.PythonCmd("-c", code)
 	if err != nil {
 		panic(err)

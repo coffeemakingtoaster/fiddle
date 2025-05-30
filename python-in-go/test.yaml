@@ -5,3 +5,7 @@ sets:
     code: |
       print("multiline hello")
       print("multiline hello2")
+  - name: test3
+    code: |
+      # This function is only defined in the wrapper and imported via ctypes. Will this work?
+      print(get_context())
