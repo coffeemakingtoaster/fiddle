@@ -9,3 +9,6 @@ exec: ./main
 	go build main.go
 
 all: lib exec
+
+clean:
+	rm ./main && rm ./lib/*.{so,h}
